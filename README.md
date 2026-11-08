@@ -18,7 +18,7 @@ To write or change a plugin, read [CONTRIBUTING.md](CONTRIBUTING.md).
 | `scripts/build-index.mjs` | Validates the plugin files and writes `index.json`. |
 | `.github/workflows/ci.yml` | Validates every plugin and checks that `index.json` is up to date. |
 
-Current plugins: `asc`, `bj-share`, `fearnopeer` and `seedpool`.
+Current plugins: `asc`, `bj-share`, `capybarabr`, `fearnopeer`, `myanonamouse` and `seedpool`.
 
 ## `index.json`
 

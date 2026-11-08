@@ -1,0 +1,104 @@
+pluginId: myanonamouse
+displayName: MyAnonamouse
+version: 1.0.0
+schemaVersion: 1
+changelog:
+  - version: 1.0.0
+    date: "2026-11-08"
+    notes: First release in the trackarr-plugins repository.
+
+baseUrls:
+  - https://www.myanonamouse.net/
+
+fields:
+  - name: mamId
+    label: mam_id
+    description: >-
+      In MyAnonamouse, open Preferences, Security and create a session locked to the IP (or ASN)
+      trackarr connects from. Paste the mam_id value it shows. MAM expires these sessions, so
+      replace the value when the integration reports an authentication failure.
+    type: password
+    required: true
+    sensitive: true
+
+http:
+  headers:
+    Accept: application/json
+  cookies:
+    mam_id: "{{mamId}}"
+
+steps:
+  - name: user
+    method: GET
+    url: "jsonLoad.php?snatch_summary"
+    responseType: json
+    extract:
+      username:
+        path: "username"
+        transform: toString
+      uploaded:
+        path: "uploaded_bytes"
+      downloaded:
+        path: "downloaded_bytes"
+      ratio:
+        path: "ratio"
+        transform: decimal
+      seedbonus:
+        path: "seedbonus"
+        transform: toString
+      seeding_satisfied:
+        path: "snatch_summary.sSat.count"
+        transform: integer
+      seeding_unsatisfied:
+        path: "snatch_summary.seedUnsat.count"
+        transform: integer
+      seeding_hnr:
+        path: "snatch_summary.seedHnr.count"
+        transform: integer
+      seeding_uploads:
+        path: "snatch_summary.upAct.count"
+        transform: integer
+      leeching:
+        path: "snatch_summary.leeching.count"
+        transform: integer
+      inactive_hnr:
+        path: "snatch_summary.inactHnr.count"
+        transform: integer
+    validate:
+      - field: username
+        rule: notEmpty
+        onFail: authFailed
+
+mapping:
+  ratio: "steps.user.ratio"
+  uploadedBytes: "steps.user.uploaded"
+  downloadedBytes: "steps.user.downloaded"
+  seedBonus: "steps.user.seedbonus"
+  hitAndRuns: "steps.user.seeding_hnr + steps.user.inactive_hnr"
+  requiredRatio: "fields.required_ratio"
+  seedingTorrents: "steps.user.seeding_satisfied + steps.user.seeding_unsatisfied + steps.user.seeding_hnr + steps.user.seeding_uploads"
+  leechingTorrents: "steps.user.leeching"
+  activeTorrents: "steps.user.seeding_satisfied + steps.user.seeding_unsatisfied + steps.user.seeding_hnr + steps.user.seeding_uploads + steps.user.leeching"
+
+dashboard:
+  metrics:
+    - stat: uploadedBytes
+      label: Uploaded
+      format: bytes
+      icon: arrow-up
+      tone: success
+    - stat: downloadedBytes
+      label: Downloaded
+      format: bytes
+      icon: arrow-down
+      tone: primary
+    - stat: seedBonus
+      label: Bonus Points
+      format: text
+      icon: coins
+      tone: warning
+    - stat: hitAndRuns
+      label: Hit & Runs
+      format: count
+      icon: shield-alert
+      tone: destructive
