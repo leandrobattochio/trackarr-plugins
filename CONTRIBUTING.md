@@ -206,7 +206,7 @@ Each key names one extracted value. Give exactly one of `regex` or `path`.
 | Transform | Input | Output |
 | --- | --- | --- |
 | `byteSize` | A number, a space and a unit: `B`, `KB`, `KiB`, `MB`, `MiB`, `GB`, `GiB`, `TB`, `TiB`, `PB`, `PiB` (case-insensitive), for example `1,5 TiB`. | Whole bytes. |
-| `decimal` | A number, with `.` or `,` as decimal separator, and an optional `K`, `M` or `B` suffix (thousand, million, billion). | Decimal number. |
+| `decimal` | A number, with `.` or `,` as decimal separator, and an optional `K`, `M` or `B` suffix (thousand, million, billion). Also `∞`, `inf` or `infinity`. | Decimal number, or `∞`. Only `ratio` accepts `∞`: it is stored as no ratio and shown as ∞ (trackarr 0.5.2 and later). |
 | `integer` | A whole number; `.` and `,` thousands separators are removed. | Integer. |
 | `toString` | Any text. | The text, trimmed. |
 

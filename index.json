@@ -57,6 +57,20 @@
       ]
     },
     {
+      "id": "myanonamouse",
+      "version": "1.0.0",
+      "schemaVersion": 1,
+      "path": "plugins/myanonamouse.yaml",
+      "sha256": "9892f14e0ffa9d558f8682dcc2e571634882984aed767e28f145241659798134",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release in the trackarr-plugins repository."
+        }
+      ]
+    },
+    {
       "id": "seedpool",
       "version": "1.0.0",
       "schemaVersion": 1,
