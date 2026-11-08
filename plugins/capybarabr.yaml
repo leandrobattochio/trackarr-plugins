@@ -1,100 +1,16 @@
 pluginId: capybarabr
 displayName: CapybaraBR
-version: 1.0.0
-schemaVersion: 1
+version: 1.1.0
+schemaVersion: 2
 changelog:
+  - version: 1.1.0
+    date: "2026-11-08"
+    notes: Built on the shared UNIT3D base, which also explains where to find the API key. Needs trackarr 0.6 or later; older trackarr keeps 1.0.0.
   - version: 1.0.0
     date: "2026-11-08"
     notes: First release.
 
+extends: unit3d
+
 baseUrls:
   - https://capybarabr.com/
-
-fields:
-  - name: apiKey
-    label: API Key
-    type: password
-    required: true
-    sensitive: true
-
-http:
-  headers:
-    Accept: application/json
-
-steps:
-  - name: user
-    method: GET
-    url: "api/user?api_token={{apiKey}}"
-    responseType: json
-    extract:
-      username:
-        path: "username"
-        transform: toString
-      uploaded:
-        path: "uploaded"
-        transform: byteSize
-      downloaded:
-        path: "downloaded"
-        transform: byteSize
-      ratio:
-        path: "ratio"
-        transform: decimal
-      buffer:
-        path: "buffer"
-        transform: toString
-      seeding:
-        path: "seeding"
-        transform: integer
-      leeching:
-        path: "leeching"
-        transform: integer
-      seedbonus:
-        path: "seedbonus"
-        transform: toString
-      hit_and_runs:
-        path: "hit_and_runs"
-        transform: integer
-    validate:
-      - field: username
-        rule: notEmpty
-        onFail: unknownError
-
-mapping:
-  ratio: "steps.user.ratio"
-  uploadedBytes: "steps.user.uploaded"
-  downloadedBytes: "steps.user.downloaded"
-  seedBonus: "steps.user.seedbonus"
-  buffer: "steps.user.buffer"
-  hitAndRuns: "steps.user.hit_and_runs"
-  requiredRatio: "fields.required_ratio"
-  seedingTorrents: "steps.user.seeding"
-  leechingTorrents: "steps.user.leeching"
-  activeTorrents: "steps.user.seeding + steps.user.leeching"
-
-dashboard:
-  metrics:
-    - stat: uploadedBytes
-      label: Uploaded
-      format: bytes
-      icon: arrow-up
-      tone: success
-    - stat: downloadedBytes
-      label: Downloaded
-      format: bytes
-      icon: arrow-down
-      tone: primary
-    - stat: seedBonus
-      label: Seed Bonus
-      format: text
-      icon: coins
-      tone: warning
-    - stat: buffer
-      label: Buffer
-      format: text
-      icon: hard-drive
-      tone: primary
-    - stat: hitAndRuns
-      label: Hit & Runs
-      format: count
-      icon: shield-alert
-      tone: destructive

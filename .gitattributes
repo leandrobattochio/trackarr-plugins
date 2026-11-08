@@ -1,2 +1,3 @@
-# index.json hashes the stored bytes of each plugin.
+# index.json hashes the stored bytes of each plugin and base.
 plugins/*.yaml -text
+bases/*.yaml -text

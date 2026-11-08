@@ -7,6 +7,7 @@ downloads it.
 ## Contents
 
 - [The plugin file](#the-plugin-file)
+- [Plugin bases](#plugin-bases)
 - [Field reference](#field-reference)
 - [Version rules](#version-rules)
 - [Testing a plugin](#testing-a-plugin)
@@ -108,6 +109,59 @@ Rules for the file itself:
   new version (see [Version rules](#version-rules)).
 - Comments are allowed and kept: trackarr shows the file exactly as written.
 
+## Plugin bases
+
+Trackers that run the same software answer the same way, so their plugins differ only in the name
+and the address. A base, in `bases/<baseId>.yaml`, holds what they share, and each plugin extends it.
+`bases/unit3d.yaml` is the base of every UNIT3D tracker, and a UNIT3D plugin is only this:
+
+```yaml
+pluginId: aither
+displayName: Aither
+version: 1.0.0
+schemaVersion: 2
+changelog:
+  - version: 1.0.0
+    date: "2026-11-08"
+    notes: First release, built on the UNIT3D base.
+
+extends: unit3d
+
+baseUrls:
+  - https://aither.cc/
+```
+
+How trackarr combines them:
+
+- The base can hold `fields`, `customFields`, `http`, `authFailure`, `steps`, `mapping` and
+  `dashboard`. Each one the plugin does not set comes from the base.
+- A key the plugin sets replaces the base's key whole; the two are not merged. To add one dashboard
+  tile, the plugin repeats the whole `dashboard`.
+- The identity of the plugin (`pluginId`, `displayName`, `version`, `changelog`) and its `baseUrls`
+  always come from the plugin.
+- A plugin with `extends` needs `schemaVersion: 2`.
+
+A base file has its own header instead of the plugin's:
+
+| Key | Required | Description |
+| --- | --- | --- |
+| `baseId` | yes | The id plugins use in `extends`. Same format as `pluginId`; the file name equals it. |
+| `displayName` | no | The name What's New shows for the base, for example `UNIT3D`. |
+| `version` | yes | The base's semantic version. Same [rules](#version) as a plugin's. |
+| `schemaVersion` | yes | `2` or later. |
+| `changelog` | expected here | Same format as a plugin's. Shown in What's New when the base changes. |
+
+Rules for a base:
+
+- It must be complete: a plugin that only sets its header, `extends` and `baseUrls` must be valid.
+  The validator checks this.
+- `pluginId`, `baseUrls`, `extends` and any other key are rejected.
+- A change to the base reaches every plugin that extends it, on every install, overrides and
+  custom plugins included, without a new plugin version. Test it with more than one of its plugins,
+  and say in its changelog what changed.
+- Add a base when a second plugin would copy most of another one. Until then, a plugin with no
+  `extends` is simpler.
+
 ## Field reference
 
 ### Top level
@@ -117,16 +171,17 @@ Rules for the file itself:
 | `pluginId` | yes | Stable id used by integrations, the API and the file name. Must match `^[a-z0-9]+(-[a-z0-9]+)*$`: lowercase letters and digits, separated by single hyphens. It can never be renamed: a new id is a new plugin. |
 | `displayName` | yes | The name shown in the UI. |
 | `version` | yes | The plugin's semantic version, for example `1.2.0`. See [Version rules](#version-rules). |
-| `schemaVersion` | yes | The integer YAML format version the plugin uses. Currently `1`. See [Version rules](#version-rules). |
+| `schemaVersion` | yes | The integer YAML format version the plugin uses: `2` for a plugin with `extends`, otherwise `1`. See [Version rules](#version-rules). |
+| `extends` | no | The `baseId` of a [plugin base](#plugin-bases). The plugin inherits every base key it does not set. |
 | `changelog` | expected here | List of release notes, one entry per version, newest first. The engine does not require it, but every plugin in this repository has one. Shown in trackarr's What's New and on the outdated-override screen. |
 | `baseUrls` | yes | At least one URL. The user picks one when creating an integration; it becomes the base of every step URL. |
 | `fields` | no | The inputs the user fills in when creating an integration, usually credentials. |
 | `customFields` | no | More inputs, same shape as `fields`. Use it for non-credential settings such as a username. |
 | `http` | no | Headers and cookies sent with every step. |
 | `authFailure` | no | How to recognise a logged-out response. |
-| `steps` | yes | At least one HTTP request, run in order. |
-| `mapping` | yes | How extracted values become trackarr's stats. |
-| `dashboard` | yes | What the tracker card shows. |
+| `steps` | yes, unless inherited | At least one HTTP request, run in order. |
+| `mapping` | yes, unless inherited | How extracted values become trackarr's stats. |
+| `dashboard` | yes, unless inherited | What the tracker card shows. |
 
 ### `changelog[]`
 
@@ -282,10 +337,11 @@ The card always shows the ratio against the required ratio, so `ratio` needs no 
 
 ### `schemaVersion`
 
-- It is an integer, at least `1`, that names the YAML format the plugin uses. The format described
-  in this guide is schema version `1`, the only one so far.
-- trackarr supports exactly one schema version. Every change to the YAML format increments it in
-  trackarr (`SupportedPluginSchemaVersion`), and this guide is updated with it.
+- It is an integer, at least `1`, that names the YAML format the plugin uses. Schema version `2`
+  adds `extends` and [plugin bases](#plugin-bases) (trackarr 0.6 and later); everything else in
+  this guide is schema version `1`.
+- trackarr runs every schema version up to the one it supports (`SupportedPluginSchemaVersion`).
+  Every change to the YAML format increments it, and this guide is updated with it.
 - trackarr refuses a plugin whose `schemaVersion` is greater than the one it supports. When an
   official plugin moves to a newer schema, installs on older trackarr keep the last compatible
   version and ask the user to update trackarr.
@@ -303,10 +359,10 @@ You need Node 22+ with [pnpm](https://pnpm.io/), and the
 
 Run the trackarr validator, which applies the same rules as the app (schema, `pluginId` format,
 engine-owned fields, `version` and `schemaVersion`) and checks that each file name equals its
-`pluginId`:
+`pluginId`. `--bases bases` also checks every base and resolves `extends` with them:
 
 ```bash
-dotnet run --project ../trackarr/backend/tools/TrackerStats.PluginValidator -- plugins/*.yaml
+dotnet run --project ../trackarr/backend/tools/TrackerStats.PluginValidator -- --bases bases plugins/*.yaml
 ```
 
 It prints `OK` or `INVALID` with the reason for each file, and exits non-zero when any file is
@@ -320,6 +376,7 @@ pnpm build-index
 ```
 
 This regenerates `index.json` and fails on a duplicate id, a file name that differs from its id,
+an `extends` that names no file in `bases/`,
 a malformed `version`, `schemaVersion` or `changelog`, or a plugin whose content changed since
 your last commit without a higher `version`. CI runs the same check against the target branch.
 
@@ -377,7 +434,9 @@ flowchart TD
 2. Fork this repository and create a branch.
 3. Copy the YAML from trackarr's editor into `plugins/<pluginId>.yaml`. Keep the same `pluginId`
    so your integrations keep pointing at it, unless an official plugin already has that id.
-4. Set `version: 1.0.0`, `schemaVersion: 1` and a `changelog` entry for `1.0.0` dated today.
+4. Set `version: 1.0.0`, `schemaVersion: 1` and a `changelog` entry for `1.0.0` dated today. If
+   the tracker runs software that already has a base, such as UNIT3D, copy a plugin that extends
+   it instead and change only `pluginId`, `displayName`, `changelog` and `baseUrls`.
 5. Check that every credential field has `sensitive: true` and a `description` that tells a new
    user where to find the value.
 6. Run the validator and `pnpm build-index`, and commit the plugin with the regenerated
