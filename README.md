@@ -7,7 +7,9 @@ API endpoints to request, how to extract the stats from the responses and how to
 dashboard. trackarr v0.4.0 and later download the plugins in this repository on every startup, so
 a fix merged here reaches every install on its next restart, without a new app image.
 
-To write or change a plugin, read [CONTRIBUTING.md](CONTRIBUTING.md).
+To write or change a plugin, read [Writing a plugin](https://github.com/leandrobattochio/trackarr/wiki/Writing-a-Plugin)
+and the [Plugin reference](https://github.com/leandrobattochio/trackarr/wiki/Plugin-Reference) in the
+trackarr wiki. [CONTRIBUTING.md](CONTRIBUTING.md) explains how to test it and submit it.
 
 ## Layout
 
