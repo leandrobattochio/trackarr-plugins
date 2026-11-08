@@ -1,6 +1,62 @@
 {
   "plugins": [
     {
+      "id": "0dayfiles",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/0dayfiles.yaml",
+      "sha256": "1097c1ce3354612ea189667d34631c5079451866312907cf34e9e25975958e33",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "3dvault",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/3dvault.yaml",
+      "sha256": "6f21dbff6223e77308b68ee8d415fcaaaaeffcffd747e38ee87d44a4aed8883d",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "aither",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/aither.yaml",
+      "sha256": "5a2ede9c7a619f1f37c755088b7980c730f52baac4ed4343bb5f5c7100c1307a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "arabicsource",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/arabicsource.yaml",
+      "sha256": "605179e5556cd21b9678b5f6ca459592007bba67bd894966208303056300b523",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
       "id": "asc",
       "version": "1.0.0",
       "schemaVersion": 1,
@@ -11,6 +67,20 @@
           "version": "1.0.0",
           "date": "2026-11-07",
           "notes": "First release in the trackarr-plugins repository."
+        }
+      ]
+    },
+    {
+      "id": "asiancinema",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/asiancinema.yaml",
+      "sha256": "fa73b42eceb9c2cfc00dd8eecd217367904ad42234de11b61723a148cc3bd066",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
         }
       ]
     },
@@ -29,12 +99,31 @@
       ]
     },
     {
-      "id": "capybarabr",
+      "id": "blutopia",
       "version": "1.0.0",
-      "schemaVersion": 1,
-      "path": "plugins/capybarabr.yaml",
-      "sha256": "08c7bf0aeea193d59ffdcd8ca8af446c01b6e07aa432c4cd08024312bbe9d59a",
+      "schemaVersion": 2,
+      "path": "plugins/blutopia.yaml",
+      "sha256": "e656b0937c19d8ba9ecac2b2be441450d3c9d7aa89e4ecf14184a17fd1ec33bc",
       "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "capybarabr",
+      "version": "1.1.0",
+      "schemaVersion": 2,
+      "path": "plugins/capybarabr.yaml",
+      "sha256": "f28da1cd5a576a46f58047dc540ffa3dac251444eea2162330241aaf7906ffe6",
+      "changelog": [
+        {
+          "version": "1.1.0",
+          "date": "2026-11-08",
+          "notes": "Built on the shared UNIT3D base, which also explains where to find the API key. Needs trackarr 0.5.3 or later; older trackarr keeps 1.0.0."
+        },
         {
           "version": "1.0.0",
           "date": "2026-11-08",
@@ -43,16 +132,287 @@
       ]
     },
     {
-      "id": "fearnopeer",
+      "id": "cinematik",
       "version": "1.0.0",
-      "schemaVersion": 1,
-      "path": "plugins/fearnopeer.yaml",
-      "sha256": "57218a5484f33b5a5c4fa944d1ca698014b65c98f06e4db500251a2bfccabac1",
+      "schemaVersion": 2,
+      "path": "plugins/cinematik.yaml",
+      "sha256": "f4f8c508afc141d595a710426742a8a334c5d6c5458d9cb04114ecdc54dd3d87",
       "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "concertos",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/concertos.yaml",
+      "sha256": "cfbdf548f5056981861d1e47fb88a7646ad54d9656ee936cf67d2780555d6a0a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "danishbits",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/danishbits.yaml",
+      "sha256": "f7de3bc107e2195de158137ed8c20298b6e1103704ae04f5ac1528734c2eb8de",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "darkpeers",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/darkpeers.yaml",
+      "sha256": "a10b1744cc0af42c26c3fd00b650378ee7c3db60cf1d15004b9871350b6bfda2",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "datascene",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/datascene.yaml",
+      "sha256": "6956a125bac24f0a73b1a826d4cb002f175bce02d40b0249e68eeb882255fd7a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "deep-water",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/deep-water.yaml",
+      "sha256": "e9a12586b4098b3802713d5a636c0077ce69e89f7a50881dea7b7506e256e45f",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "dreadvault",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/dreadvault.yaml",
+      "sha256": "19b672e2facd8df4bec74038f56ed26173e59a181f3c85fa2c1f5c3938977e3b",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "emuwarez",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/emuwarez.yaml",
+      "sha256": "29420c8c713eb61bd3e3fbbb8cd4463de610079539c398e52ae39706141d368e",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "fearnopeer",
+      "version": "1.1.0",
+      "schemaVersion": 2,
+      "path": "plugins/fearnopeer.yaml",
+      "sha256": "c38fe95e5e165711956fdeaf5dc3b9bd02bf64aa3aa2405348b55514c4863984",
+      "changelog": [
+        {
+          "version": "1.1.0",
+          "date": "2026-11-08",
+          "notes": "Built on the shared UNIT3D base, which also explains where to find the API key. Needs trackarr 0.5.3 or later; older trackarr keeps 1.0.0."
+        },
         {
           "version": "1.0.0",
           "date": "2026-11-07",
           "notes": "First release in the trackarr-plugins repository."
+        }
+      ]
+    },
+    {
+      "id": "funzone",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/funzone.yaml",
+      "sha256": "9a4b79d14e207c044e98a663cc95dc361eecf47d65ef44e8cdeef418fa6dd1fb",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "hd-unit3d",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/hd-unit3d.yaml",
+      "sha256": "cdb03756037b373f705e5f72bcdd0c6b3260f655aa379948f98b2236acb89d01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "hellenic-hd",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/hellenic-hd.yaml",
+      "sha256": "5adc84f7a55786c68ad7ec281025a3686be74e1dbc1b45e3b3ea3e7967e74c7c",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "hhd",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/hhd.yaml",
+      "sha256": "4cf2e21a516ec432932c0969e95bd7a97214103ef3a69f8f51f64ffdbb4cc2e8",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "infinityhd",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/infinityhd.yaml",
+      "sha256": "d7171fcba0fb5e1fbdb5d2f5e7e2334feec7a13d76861631640314d2afc2fc15",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "jptv4us",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/jptv4us.yaml",
+      "sha256": "9968b66c7d794dfb08757573d1788b907f98e2d08eb6d7637b6866d92733f0fa",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "lst",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/lst.yaml",
+      "sha256": "37cc51e942acf566a4a36aae021bb62425a56c9a7414ac813eb3abb316e4cfaf",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "luminarr",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/luminarr.yaml",
+      "sha256": "dc9dd080925974477067f5c1738fd9fbe95cb0fb978226edb28c996f838b1598",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "malayabits",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/malayabits.yaml",
+      "sha256": "8d38224f2621a346cb6cc91a0022d28793ce42e9de62223d0ad4089cd7bc1d97",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "midnightscene",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/midnightscene.yaml",
+      "sha256": "d7653d584208e35ffd9dd0a34f526fb5af244016b6ae59827abb126df1f15180",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "milnueve",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/milnueve.yaml",
+      "sha256": "56cb3347aa02ddb4b4baeeae574ad4fb9c3036bc13ced9af969785222c498e1a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
         }
       ]
     },
@@ -71,16 +431,317 @@
       ]
     },
     {
-      "id": "seedpool",
+      "id": "nirvana",
       "version": "1.0.0",
-      "schemaVersion": 1,
-      "path": "plugins/seedpool.yaml",
-      "sha256": "f6d5a48b664a4c0992d92848f146e07cd4fb6089b018ff10c294fafc0353a943",
+      "schemaVersion": 2,
+      "path": "plugins/nirvana.yaml",
+      "sha256": "9b707125c49d5bf7d9ea94e5525fb43b78c4827ef81938810701fe5d3a4adf09",
       "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "nobs",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/nobs.yaml",
+      "sha256": "3623dab9e19a423b5eedfc0fa8292bb4f1ca35c7bd0191846df08768fe224303",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "nordicquality",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/nordicquality.yaml",
+      "sha256": "9752d216022f750b87a0b0c4868500cd6e68baa9285bc282a07ec1091561a5b9",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "oldtoonsworld",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/oldtoonsworld.yaml",
+      "sha256": "122c5e314a0de61064c258f34dfa3595cadc5bddd4336d493c25eb6a830b4ed4",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "onlyencodes",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/onlyencodes.yaml",
+      "sha256": "43ea2d3a07933254d44689e525a2c9f6ec5f5b520bd7e140f79acb01867a5a7a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "podzemlje",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/podzemlje.yaml",
+      "sha256": "5df08d3890ef1d4d482be3ee0bdd8528c24a0e09d85e113815eaf886a18b23ce",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "rastastugan",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/rastastugan.yaml",
+      "sha256": "24953d3b8b5f89e11b3a7b6a5842c3d88e0bb3a30bbffbffcab9dd7e2dc0edfd",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "reelflix",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/reelflix.yaml",
+      "sha256": "a1433d9f77db85bed7b582875a101ab5872e5059c5946294f2122bda329592d2",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "retromoviesclub",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/retromoviesclub.yaml",
+      "sha256": "ee9a126a1aa3540be4b94def7a27704d93317de54f0680260156c9d51eeb63c9",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "seedpool",
+      "version": "1.1.0",
+      "schemaVersion": 2,
+      "path": "plugins/seedpool.yaml",
+      "sha256": "dd83e5c48c75d93b4f5b6af8b732036ca6ab41a6241970e9edfa4bfe513fd9ae",
+      "changelog": [
+        {
+          "version": "1.1.0",
+          "date": "2026-11-08",
+          "notes": "Built on the shared UNIT3D base, which also explains where to find the API key. Needs trackarr 0.5.3 or later; older trackarr keeps 1.0.0."
+        },
         {
           "version": "1.0.0",
           "date": "2026-11-07",
           "notes": "First release in the trackarr-plugins repository."
+        }
+      ]
+    },
+    {
+      "id": "shadow",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/shadow.yaml",
+      "sha256": "946339b8e6d02ffeaad8803409d04a51b86d4d7b3ae6c673c188366d8f466200",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "skipthecommercials",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/skipthecommercials.yaml",
+      "sha256": "cdb48e4388305722acff89f04999f20c6bdf56b5d5e7b88ac2133919c762849a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "teamflix",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/teamflix.yaml",
+      "sha256": "b0c73100b9bedfb91fba931e6855c3e198171b0481ec9478ae11fabc7208abd1",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "thorhub",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/thorhub.yaml",
+      "sha256": "c640e4ae2a5117444912783393b7e5494715781e607cd05078169ee28f0b341d",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "torrenthaven",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/torrenthaven.yaml",
+      "sha256": "bddf3cd589a502cf3f8c63affe960d61f8c59399bd96eed08d0bdee8a8f718e8",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "turkseed",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/turkseed.yaml",
+      "sha256": "8f646cf3e6a57cf66bbe94ffde4cd9c422c3333897256c7b9373c4b7d68ca52e",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "uploadcx",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/uploadcx.yaml",
+      "sha256": "cf8768544511d1daaadb720801ef213141085e5027e883868cafcd19875faf88",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "utopia",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/utopia.yaml",
+      "sha256": "ae4aa7729d98fddc5bdc1a83b7be9453510603c8f795b2c53ae2c3a497dd8d6f",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "vietmediaf",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/vietmediaf.yaml",
+      "sha256": "ff2969b16b3fa1401545de7c3667546222585bb8b23af8f3d63d4ded00d9f231",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "yuscene",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/yuscene.yaml",
+      "sha256": "13ff9c3779f1513fe489964873008b2721cc547f8c85cdf7d04e9f4f7e0aad09",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    },
+    {
+      "id": "zenith",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "plugins/zenith.yaml",
+      "sha256": "dfec3eb5ba7662619520d8d971dc03fec30387688f44bd327a7003f393fe3f02",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release, built on the UNIT3D base. Not yet tested with an account on this tracker."
+        }
+      ]
+    }
+  ],
+  "bases": [
+    {
+      "id": "unit3d",
+      "version": "1.0.0",
+      "schemaVersion": 2,
+      "path": "bases/unit3d.yaml",
+      "sha256": "53fd40d51238d1182729e4ca44708f95f489a18d5342b7405137df2359798135",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release. Reads the UNIT3D user API (api/user), which UNIT3D has since version 8.3.5."
         }
       ]
     }

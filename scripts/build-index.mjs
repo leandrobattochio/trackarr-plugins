@@ -9,6 +9,7 @@ import { parse } from 'yaml';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pluginsDir = 'plugins';
+const basesDir = 'bases';
 const indexFile = 'index.json';
 
 // Same rules as PluginSchema in trackarr.
@@ -90,7 +91,7 @@ function readChangelog(relPath, changelog, errors) {
   });
 }
 
-function buildEntry(relPath, content, base, errors, pathsById) {
+function buildEntry(relPath, content, base, errors, pathsById, kind = 'plugin') {
   let doc;
   try {
     doc = parsePlugin(content);
@@ -99,21 +100,32 @@ function buildEntry(relPath, content, base, errors, pathsById) {
     return null;
   }
 
+  const idKey = kind === 'base' ? 'baseId' : 'pluginId';
   const fileId = path.basename(relPath, '.yaml');
-  const { pluginId: id, version, schemaVersion } = doc;
+  const { [idKey]: id, version, schemaVersion } = doc;
   const before = errors.length;
   if (typeof id === 'string') pathsById.set(id, [...(pathsById.get(id) ?? []), relPath]);
 
   if (typeof id !== 'string' || !pluginIdPattern.test(id)) {
-    errors.push(`${relPath}: 'pluginId' must be lowercase letters, digits and single hyphens.`);
+    errors.push(`${relPath}: '${idKey}' must be lowercase letters, digits and single hyphens.`);
   } else if (id !== fileId) {
-    errors.push(`${relPath}: file name '${fileId}' differs from pluginId '${id}'.`);
+    errors.push(`${relPath}: file name '${fileId}' differs from ${idKey} '${id}'.`);
   }
   if (typeof version !== 'string' || !semverPattern.test(version)) {
     errors.push(`${relPath}: 'version' must be a semantic version such as 1.2.0.`);
   }
   if (!Number.isInteger(schemaVersion) || schemaVersion < 1) {
     errors.push(`${relPath}: 'schemaVersion' must be an integer of at least 1.`);
+  }
+  if (kind === 'base' && Number.isInteger(schemaVersion) && schemaVersion < 2) {
+    errors.push(`${relPath}: a base needs 'schemaVersion: 2' or later.`);
+  }
+  if (kind === 'plugin' && doc.extends !== undefined) {
+    if (typeof doc.extends !== 'string' || !pluginIdPattern.test(doc.extends)) {
+      errors.push(`${relPath}: 'extends' must be the id of a base in ${basesDir}/.`);
+    } else if (!Number.isInteger(schemaVersion) || schemaVersion < 2) {
+      errors.push(`${relPath}: 'extends' needs 'schemaVersion: 2' or later.`);
+    }
   }
   const changelog = readChangelog(relPath, doc.changelog, errors);
   if (errors.length > before) return null;
@@ -131,7 +143,34 @@ function buildEntry(relPath, content, base, errors, pathsById) {
     }
   }
 
-  return { id, version, schemaVersion, path: relPath, sha256: sha256(content), changelog };
+  return { id, version, schemaVersion, path: relPath, sha256: sha256(content), changelog, extends: doc.extends };
+}
+
+function readEntries(dir, kind, base, errors) {
+  const entries = [];
+  const pathsById = new Map();
+  let files = [];
+  try {
+    files = readdirSync(path.join(root, dir), { withFileTypes: true }).map((dirent) => dirent.name).sort();
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+
+  for (const name of files) {
+    const relPath = `${dir}/${name}`;
+    if (!name.endsWith('.yaml')) {
+      errors.push(`${relPath}: only .yaml files are allowed in ${dir}/.`);
+      continue;
+    }
+    const entry = buildEntry(relPath, readFileSync(path.join(root, relPath)), base, errors, pathsById, kind);
+    if (entry) entries.push(entry);
+  }
+
+  for (const [id, paths] of pathsById) {
+    if (paths.length > 1) errors.push(`Duplicate ${kind} id '${id}' in ${paths.join(', ')}.`);
+  }
+
+  return entries.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
 
 function main() {
@@ -143,24 +182,13 @@ function main() {
   }
 
   const errors = [];
-  const entries = [];
-  const pathsById = new Map();
-  const files = readdirSync(path.join(root, pluginsDir), { withFileTypes: true })
-    .map((dirent) => dirent.name)
-    .sort();
-
-  for (const name of files) {
-    const relPath = `${pluginsDir}/${name}`;
-    if (!name.endsWith('.yaml')) {
-      errors.push(`${relPath}: only .yaml files are allowed in ${pluginsDir}/.`);
-      continue;
+  const bases = readEntries(basesDir, 'base', base, errors);
+  const entries = readEntries(pluginsDir, 'plugin', base, errors);
+  const baseIds = new Set(bases.map((entry) => entry.id));
+  for (const entry of entries) {
+    if (entry.extends !== undefined && !baseIds.has(entry.extends)) {
+      errors.push(`${entry.path}: extends '${entry.extends}', but ${basesDir}/${entry.extends}.yaml does not exist.`);
     }
-    const entry = buildEntry(relPath, readFileSync(path.join(root, relPath)), base, errors, pathsById);
-    if (entry) entries.push(entry);
-  }
-
-  for (const [id, paths] of pathsById) {
-    if (paths.length > 1) errors.push(`Duplicate pluginId '${id}' in ${paths.join(', ')}.`);
   }
 
   if (errors.length > 0) {
@@ -169,8 +197,10 @@ function main() {
     process.exit(1);
   }
 
-  entries.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-  const content = `${JSON.stringify({ plugins: entries }, null, 2)}\n`;
+  const strip = ({ extends: _extends, ...entry }) => entry;
+  const index = { plugins: entries.map(strip) };
+  if (bases.length > 0) index.bases = bases.map(strip);
+  const content = `${JSON.stringify(index, null, 2)}\n`;
   if (check) {
     let committed = null;
     try {
@@ -182,11 +212,11 @@ function main() {
       console.error(`ERROR ${indexFile} is out of date: run pnpm build-index and commit it with the plugin files.`);
       process.exit(1);
     }
-    console.log(`${indexFile} is up to date with ${entries.length} plugin(s).`);
+    console.log(`${indexFile} is up to date with ${entries.length} plugin(s) and ${bases.length} base(s).`);
     return;
   }
   writeFileSync(path.join(root, indexFile), content);
-  console.log(`Wrote ${indexFile} with ${entries.length} plugin(s).`);
+  console.log(`Wrote ${indexFile} with ${entries.length} plugin(s) and ${bases.length} base(s).`);
 }
 
 try {

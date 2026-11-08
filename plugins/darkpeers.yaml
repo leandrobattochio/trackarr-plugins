@@ -1,0 +1,13 @@
+pluginId: darkpeers
+displayName: Darkpeers
+version: 1.0.0
+schemaVersion: 2
+changelog:
+  - version: 1.0.0
+    date: "2026-11-08"
+    notes: First release, built on the UNIT3D base. Not yet tested with an account on this tracker.
+
+extends: unit3d
+
+baseUrls:
+  - https://darkpeers.org/
