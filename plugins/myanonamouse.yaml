@@ -37,9 +37,11 @@ steps:
         path: "username"
         transform: toString
       uploaded:
-        path: "uploaded_bytes"
+        path: "uploaded"
+        transform: byteSize
       downloaded:
-        path: "downloaded_bytes"
+        path: "downloaded"
+        transform: byteSize
       ratio:
         path: "ratio"
         transform: decimal
