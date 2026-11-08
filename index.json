@@ -29,6 +29,20 @@
       ]
     },
     {
+      "id": "capybarabr",
+      "version": "1.0.0",
+      "schemaVersion": 1,
+      "path": "plugins/capybarabr.yaml",
+      "sha256": "08c7bf0aeea193d59ffdcd8ca8af446c01b6e07aa432c4cd08024312bbe9d59a",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-08",
+          "notes": "First release."
+        }
+      ]
+    },
+    {
       "id": "fearnopeer",
       "version": "1.0.0",
       "schemaVersion": 1,
