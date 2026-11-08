@@ -1,0 +1,78 @@
+pluginId: asc
+displayName: Amigos-Share Club
+version: 1.0.0
+schemaVersion: 1
+changelog:
+  - version: 1.0.0
+    date: "2026-11-07"
+    notes: First release in the trackarr-plugins repository.
+
+baseUrls:
+  - https://amigos-share.club/
+
+fields:
+  - name: cookie
+    label: Cookie
+    type: text
+    required: true
+    sensitive: true
+
+http:
+  headers:
+    Accept: application/json
+    Cookie: "{{cookie}}"
+
+authFailure:
+  htmlPatterns:
+    - "\"auth\":{\"user\":null"
+
+steps:
+  - name: profile
+    method: GET
+    url: "dashboard"
+    responseType: html
+    extract:
+      ratio:
+        regex: "\"stats\":\\{.*?\"ratio\":(?<value>\\d+(?:\\.\\d{1,4})?)"
+        transform: decimal
+      seedBonus:
+        regex: "\"stats\":\\{.*?\"seedBonus\":(?<value>\\d+(?:\\.\\d+)?)"
+        transform: decimal
+      uploadedBytes:
+        regex: "\"stats\":\\{.*?\"uploaded\":(?<value>\\d+)"
+      downloadedBytes:
+        regex: "\"stats\":\\{.*?\"downloaded\":(?<value>\\d+)"
+      seedingTorrents:
+        regex: "\"stats\":\\{.*?\"seeding\":(?<value>\\d+)"
+        transform: integer
+      leechingTorrents:
+        regex: "\"stats\":\\{.*?\"leeching\":(?<value>\\d+)"
+        transform: integer
+
+mapping:
+  ratio: "steps.profile.ratio"
+  uploadedBytes: "steps.profile.uploadedBytes"
+  downloadedBytes: "steps.profile.downloadedBytes"
+  seedBonus: "steps.profile.seedBonus"
+  requiredRatio: "fields.required_ratio"
+  seedingTorrents: "steps.profile.seedingTorrents"
+  leechingTorrents: "steps.profile.leechingTorrents"
+  activeTorrents: "steps.profile.seedingTorrents + steps.profile.leechingTorrents"
+
+dashboard:
+  metrics:
+    - stat: uploadedBytes
+      label: Uploaded
+      format: bytes
+      icon: arrow-up
+      tone: success
+    - stat: downloadedBytes
+      label: Downloaded
+      format: bytes
+      icon: arrow-down
+      tone: primary
+    - stat: seedBonus
+      label: ASC Coins
+      format: text
+      icon: coins
+      tone: warning

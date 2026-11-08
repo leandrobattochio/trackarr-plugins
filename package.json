@@ -1,0 +1,12 @@
+{
+  "name": "trackarr-plugins",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.11.2",
+  "scripts": {
+    "build-index": "node scripts/build-index.mjs"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}
