@@ -338,7 +338,7 @@ The card always shows the ratio against the required ratio, so `ratio` needs no 
 ### `schemaVersion`
 
 - It is an integer, at least `1`, that names the YAML format the plugin uses. Schema version `2`
-  adds `extends` and [plugin bases](#plugin-bases) (trackarr 0.6 and later); everything else in
+  adds `extends` and [plugin bases](#plugin-bases) (trackarr 0.5.3 and later); everything else in
   this guide is schema version `1`.
 - trackarr runs every schema version up to the one it supports (`SupportedPluginSchemaVersion`).
   Every change to the YAML format increments it, and this guide is updated with it.

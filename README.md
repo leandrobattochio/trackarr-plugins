@@ -56,7 +56,7 @@ The plugins are the files in [`plugins/`](plugins).
 | `changelog` | list | The plugin's `changelog` entries, copied from the YAML: `{version, date, notes}`. |
 
 `bases` has the same fields, with `id` taken from the base's `baseId` and `path` under `bases/`.
-trackarr before 0.6 ignores it.
+trackarr 0.5.2 and earlier ignore it.
 
 Every value comes from the YAML files, so the index is a pure function of `plugins/` and `bases/`. It carries no
 timestamp or commit: regenerating it from the same files gives the same bytes, and its hash
