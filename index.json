@@ -291,6 +291,20 @@
       ]
     },
     {
+      "id": "happyfappy",
+      "version": "1.0.0",
+      "schemaVersion": 1,
+      "path": "plugins/happyfappy.yaml",
+      "sha256": "633a7a04b8807fec6fa150aa3ee0f587cca400cd71fd04d44a9ddbd9be2484b0",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-21",
+          "notes": "First release. Reads the profile page of HappyFappy, a Gazelle tracker."
+        }
+      ]
+    },
+    {
       "id": "hd-unit3d",
       "version": "1.0.0",
       "schemaVersion": 2,
