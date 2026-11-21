@@ -1,0 +1,107 @@
+pluginId: exoticaz
+displayName: ExoticaZ
+version: 1.0.0
+schemaVersion: 1
+changelog:
+  - version: 1.0.0
+    date: "2026-11-20"
+    notes: First release. Reads the stat bar on the profile page of ExoticaZ, an AvistaZ Network tracker.
+
+baseUrls:
+  - https://exoticaz.to/
+
+fields:
+  - name: cookie
+    label: Cookie
+    description: Open DevTools (F12) on the Network tab, reload a page while logged in, click the first request and copy the whole value of its Cookie request header, then paste it here.
+    type: text
+    required: true
+    sensitive: true
+
+customFields:
+  - name: username
+    label: User Name
+    description: Your exact ExoticaZ username, as it appears in your profile URL (/profile/<username>).
+    type: text
+    required: true
+
+http:
+  headers:
+    Accept: text/html
+    Cookie: "{{cookie}}"
+
+authFailure:
+  htmlPatterns:
+    - "name=\"password\""
+    - "type=\"password\""
+
+steps:
+  - name: profile
+    method: GET
+    url: "profile/{{username}}"
+    responseType: html
+    extract:
+      uploadedBytes:
+        regex: "title=\"Upload\"><i[^>]*></i>\\s*(?<value>[\\d.,]+ [A-Za-z]*B)"
+        transform: byteSize
+      downloadedBytes:
+        regex: "title=\"Download\"><i[^>]*></i>\\s*(?<value>[\\d.,]+ [A-Za-z]*B)"
+        transform: byteSize
+      ratio:
+        regex: "title=\"Ratio\"><i[^>]*></i>\\s*(?<value>[\\d.,]+)"
+        transform: decimal
+      buffer:
+        regex: "title=\"Buffer\"><i[^>]*></i>\\s*(?<value>[\\d.,]+ [A-Za-z]*B)"
+        transform: toString
+      seedingTorrents:
+        regex: ">Seeding:</a>\\s*(?<value>\\d+)"
+        transform: integer
+      leechingTorrents:
+        regex: ">Leeching:</a>\\s*(?<value>\\d+)"
+        transform: integer
+      seedBonus:
+        regex: ">Bonus:</a>\\s*(?<value>[\\d.,]+)"
+        transform: toString
+      hitAndRuns:
+        regex: "Hit\\s*&(?:amp;)?\\s*Run:</a>\\s*(?<value>\\d+)"
+        transform: integer
+
+mapping:
+  ratio: "steps.profile.ratio"
+  uploadedBytes: "steps.profile.uploadedBytes"
+  downloadedBytes: "steps.profile.downloadedBytes"
+  buffer: "steps.profile.buffer"
+  seedBonus: "steps.profile.seedBonus"
+  hitAndRuns: "steps.profile.hitAndRuns"
+  requiredRatio: "fields.required_ratio"
+  seedingTorrents: "steps.profile.seedingTorrents"
+  leechingTorrents: "steps.profile.leechingTorrents"
+  activeTorrents: "steps.profile.seedingTorrents + steps.profile.leechingTorrents"
+
+dashboard:
+  metrics:
+    - stat: uploadedBytes
+      label: Uploaded
+      format: bytes
+      icon: arrow-up
+      tone: success
+    - stat: downloadedBytes
+      label: Downloaded
+      format: bytes
+      icon: arrow-down
+      tone: primary
+    - stat: buffer
+      label: Buffer
+      format: text
+      icon: hard-drive
+      tone: primary
+    - stat: seedBonus
+      label: Bonus
+      format: text
+      icon: coins
+      tone: warning
+    - stat: hitAndRuns
+      label: Hit & Run
+      format: count
+      icon: shield-alert
+      tone: destructive
