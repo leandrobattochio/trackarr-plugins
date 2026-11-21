@@ -244,6 +244,20 @@
       ]
     },
     {
+      "id": "exoticaz",
+      "version": "1.0.0",
+      "schemaVersion": 1,
+      "path": "plugins/exoticaz.yaml",
+      "sha256": "d3278776de8e2a3ff33dd31123052befbd036ddf8d68f99d1a1efa41c12b1250",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-20",
+          "notes": "First release. Reads the stat bar on the profile page of ExoticaZ, an AvistaZ Network tracker."
+        }
+      ]
+    },
+    {
       "id": "fearnopeer",
       "version": "1.1.0",
       "schemaVersion": 2,
