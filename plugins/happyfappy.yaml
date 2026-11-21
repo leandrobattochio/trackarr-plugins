@@ -1,0 +1,85 @@
+pluginId: happyfappy
+displayName: HappyFappy
+version: 1.0.0
+schemaVersion: 1
+changelog:
+  - version: 1.0.0
+    date: "2026-11-21"
+    notes: First release. Reads the profile page of HappyFappy, a Gazelle tracker.
+
+baseUrls:
+  - https://www.happyfappy.net/
+
+fields:
+  - name: cookie
+    label: Cookie
+    description: Open DevTools (F12) on the Network tab, reload a page while logged in, click the first request and copy the whole value of its Cookie request header, then paste it here.
+    type: text
+    required: true
+    sensitive: true
+
+customFields:
+  - name: userId
+    label: User ID
+    description: The numeric id in your profile URL (user.php?id=<number>). Open your own profile and copy the number.
+    type: number
+    required: true
+
+http:
+  headers:
+    Accept: text/html
+    Cookie: "{{cookie}}"
+
+authFailure:
+  htmlPatterns:
+    - "name=\"password\""
+    - "type=\"password\""
+
+steps:
+  - name: profile
+    method: GET
+    url: "user.php?id={{userId}}"
+    responseType: html
+    extract:
+      uploadedBytes:
+        regex: "Uploaded:\\s*(?:<[^>]*>\\s*)*(?<value>[\\d.,]+ [KMGTP]?i?B)"
+        transform: byteSize
+      downloadedBytes:
+        regex: "Downloaded:\\s*(?:<[^>]*>\\s*)*(?<value>[\\d.,]+ [KMGTP]?i?B)"
+        transform: byteSize
+      ratio:
+        regex: "Ratio:\\s*<span class=\"[^\"]*r\\d+[^\"]*\"[^>]*>(?<value>[^<]+)</span>"
+        transform: decimal
+      seedingTorrents:
+        regex: "Seeding:\\s*(?:<[^>]*>\\s*)*(?<value>\\d+)"
+        transform: integer
+      leechingTorrents:
+        regex: "Leeching:\\s*(?:<[^>]*>\\s*)*(?<value>\\d+)"
+        transform: integer
+
+mapping:
+  ratio: "steps.profile.ratio"
+  uploadedBytes: "steps.profile.uploadedBytes"
+  downloadedBytes: "steps.profile.downloadedBytes"
+  requiredRatio: "fields.required_ratio"
+  seedingTorrents: "steps.profile.seedingTorrents"
+  leechingTorrents: "steps.profile.leechingTorrents"
+  activeTorrents: "steps.profile.seedingTorrents + steps.profile.leechingTorrents"
+
+dashboard:
+  metrics:
+    - stat: uploadedBytes
+      label: Uploaded
+      format: bytes
+      icon: arrow-up
+      tone: success
+    - stat: downloadedBytes
+      label: Downloaded
+      format: bytes
+      icon: arrow-down
+      tone: primary
+    - stat: seedingTorrents
+      label: Seeding
+      format: count
+      icon: hard-drive
+      tone: primary
